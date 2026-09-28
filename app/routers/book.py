@@ -14,10 +14,6 @@ router = APIRouter(
 )
 
 
-# =========================================================
-# CREATE BOOK
-# =========================================================
-
 @router.post(
     "",
     response_model=BookResponse,
@@ -74,10 +70,6 @@ def create_book(
     return new_book
 
 
-# =========================================================
-# GET BOOKS WITH SEARCH, FILTER AND PAGINATION
-# =========================================================
-
 @router.get(
     "",
     response_model=list[BookResponse]
@@ -115,10 +107,6 @@ def get_books(
     )
 
 
-# =========================================================
-# GET BOOK BY ID
-# =========================================================
-
 @router.get(
     "/{book_id}",
     response_model=BookResponse
@@ -141,10 +129,6 @@ def get_book(
 
     return book
 
-
-# =========================================================
-# UPDATE BOOK
-# =========================================================
 
 @router.put(
     "/{book_id}",
@@ -214,10 +198,6 @@ def update_book(
     return existing_book
 
 
-# =========================================================
-# DELETE BOOK
-# =========================================================
-
 @router.delete(
     "/{book_id}"
 )
@@ -241,7 +221,7 @@ def delete_book(
         db.query(BorrowRecord)
         .filter(
             BorrowRecord.book_id == book_id,
-            BorrowRecord.status.in_(["Borrowed", "Overdue"])
+            BorrowRecord.return_date.is_(None)
         )
         .first()
     )

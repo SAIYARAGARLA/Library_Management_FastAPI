@@ -270,3 +270,20 @@ DATABASE_URL=mysql+mysqlconnector://root:YOUR_PASSWORD@localhost/library_db
 ```
 
 Use your actual password only in your local `.env` file.
+
+---
+
+## Assumptions
+
+- A member can have a maximum of 3 active borrowed books at a time.
+- A borrowed book is considered active when its `return_date` is NULL.
+- The due date is calculated as 14 days from the borrow date.
+- A late returned book is marked with status `Overdue`.
+- An inactive member cannot borrow books.
+- A member cannot borrow the same book again until the previous borrowing is returned.
+- A category cannot be deleted while books are associated with it.
+- A member cannot be deleted when borrow records exist for that member.
+- A book cannot be deleted while it is currently borrowed.
+- Phone numbers are validated as 10 to 15 digits.
+- ISBN, email, and category name must be unique.
+- Database credentials are stored locally in `.env` and are not committed to GitHub.
